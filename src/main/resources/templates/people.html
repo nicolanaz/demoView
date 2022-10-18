@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns th="http://www.thymeleaf.org">
+<head>
+    <title>Position Report</title>
+    <meta http-equiv="Content-Type" content="text/html"; charset="UTF-8"/>
+</head>
+<body>
+<script type="text/javascript">
+    window.onload = setupRefresh;
+
+    function setupRefresh() {
+        setTimeout("refreshPage();", 5000);
+    }
+
+    function refreshPage() {
+        window.location = location.href;
+    }
+</script>
+<div class="peopleList" th:unless="${#lists.isEmpty(listOfPeople)}">
+    <h2>Information about people</h2>
+    <table>
+        <thread>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Profession</th>
+                <th>Married</th>
+                <th></th>
+            </tr>
+        </thread>
+        <tbody>
+        <tr th:each="person : ${listOfPeople}">
+            <td th:text="${person.id}"></td>
+            <td th:text="${person.name}"></td>
+            <td th:text="${person.age}"></td>
+            <td th:text="${person.profession}"></td>
+            <td th:text="${person.married}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
