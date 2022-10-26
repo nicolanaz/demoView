@@ -39,15 +39,6 @@ public class PersonController {
     }
 
     @ResponseBody
-    @PostMapping
-    public Mono<Person> postPerson(Person person) {
-        return client.post()
-                .body(Mono.just(person), Person.class)
-                .retrieve()
-                .bodyToMono(Person.class);
-    }
-
-    @ResponseBody
     @GetMapping("/{age}")
     public Flux<Person> getPeopleOlder(@PathVariable(name = "age") int age) {
         return client.get()
