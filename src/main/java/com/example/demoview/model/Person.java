@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Random;
 
 
 @Data
@@ -14,7 +15,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 public class Person {
     @Id
-    private Long id;
+    private Long id = new Random().nextLong(1000000);
     private String name;
     private int age;
     private String profession;
