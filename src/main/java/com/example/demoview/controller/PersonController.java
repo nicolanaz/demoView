@@ -1,32 +1,29 @@
 package com.example.demoview.controller;
 
 import com.example.demoview.model.Person;
-import com.example.demoview.model.PersonRepository;
+import com.example.demoview.model.PersonService;
 import org.springframework.http.MediaType;
 import org.springframework.messaging.rsocket.RSocketRequester;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 
 @Controller
 @RequestMapping("/people")
 public class PersonController {
-    private PersonRepository repository;
+    private PersonService service;
     private RSocketRequester requester;
-    private WebClient client = WebClient.create("http://localhost:8080/people");
 
-    public PersonController(PersonRepository repository, RSocketRequester.Builder builder) {
-        this.repository = repository;
-        this.requester = builder.tcp("localhost", 7634);
+    public PersonController(PersonService service, RSocketRequester requester) {
+        this.service = service;
+        this.requester = requester;
     }
 
     @GetMapping
     public String getPeople(Model model) {
-        model.addAttribute("listOfPeople", repository.findAll());
+        model.addAttribute("listOfPeople", service.getPeople());
         return "people";
     }
 
@@ -41,9 +38,6 @@ public class PersonController {
     @ResponseBody
     @GetMapping("/{age}")
     public Flux<Person> getPeopleOlder(@PathVariable(name = "age") int age) {
-        return client.get()
-                .retrieve()
-                .bodyToFlux(Person.class)
-                .filter(person -> person.getAge() >= age);
+        return service.getPeopleOlder(age);
     }
 }
