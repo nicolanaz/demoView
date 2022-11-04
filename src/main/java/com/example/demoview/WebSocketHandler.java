@@ -47,6 +47,4 @@ public class WebSocketHandler extends TextWebSocketHandler {
         sessionList.remove(session);
         System.out.println("Connection closed by: " + session.toString() + " " + Instant.now().toString());
     }
-
-
 }

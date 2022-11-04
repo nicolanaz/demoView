@@ -8,6 +8,6 @@ import org.springframework.messaging.rsocket.RSocketRequester;
 public class RSocketRequesterConfig {
     @Bean
     RSocketRequester requester(RSocketRequester.Builder builder) {
-        return builder.tcp("localhost", 8080);
+        return builder.tcp("localhost", 7634);
     }
 }
