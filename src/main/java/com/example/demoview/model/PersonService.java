@@ -7,7 +7,7 @@ import reactor.core.publisher.Flux;
 
 @Service
 public class PersonService {
-    private WebClient client = WebClient.create("http://localhost:8080");
+    private WebClient client = WebClient.create("http://localhost:8080/people");
     private PersonRepository repo;
 
     public PersonService(PersonRepository repo) {
