@@ -24,4 +24,8 @@ public class PersonService {
                 .bodyToFlux(Person.class)
                 .filter(person -> person.getAge() >= age);
     }
+
+    public Person getPersonByName(String name) {
+        return repo.findPersonByName(name);
+    }
 }

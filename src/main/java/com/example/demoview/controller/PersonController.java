@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
+import java.util.Map;
+
 
 @Controller
 @RequestMapping("/people")
@@ -39,5 +41,11 @@ public class PersonController {
     @GetMapping("/{age}")
     public Flux<Person> getPeopleOlder(@PathVariable(name = "age") int age) {
         return service.getPeopleOlder(age);
+    }
+
+    @ResponseBody
+    @GetMapping("/search")
+    public Person getPersonByName(@RequestParam Map<String, String> params) {
+        return service.getPersonByName(params.entrySet().iterator().next().getValue());
     }
 }
